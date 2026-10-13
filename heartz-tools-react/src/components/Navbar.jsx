@@ -1,54 +1,46 @@
+// src/components/Navbar.jsx
 import React from 'react';
 
-function Navbar() {
+const Navbar = ({ totalCarrito, cambiarVista }) => {
   return (
-    <header>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-        <div className="container-fluid">
-          {/* Logo con enlace al inicio */}
-          <a className="navbar-brand fw-bold" href="#">
-            HEARTZ TOOLS
-          </a>
-
-          {/* Botón hamburguesa para móviles */}
-          <button 
-            className="navbar-toggler" 
-            type="button" 
-            data-bs-toggle="collapse" 
-            data-bs-target="#navbarNav"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          {/* Enlaces de navegación */}
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-              <li className="nav-item">
-                <a className="nav-link active" href="#">Inicio</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Catálogo</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Categorías</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Nosotros</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Contacto</a>
-              </li>
-              <li className="nav-item ms-lg-3">
-                <a className="btn btn-outline-light btn-sm" href="#">
-                  <i className="fas fa-shopping-cart"></i> Carrito
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 shadow-sm">
+      <a 
+        className="navbar-brand fw-bold text-light" 
+        href="#catalogo" 
+        onClick={() => cambiarVista('catalogo')}
+        style={{ letterSpacing: '0.5px' }}
+      >
+         Heartz Tools
+      </a>
+      <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span className="navbar-toggler-icon"></span>
+      </button>
+      <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul className="navbar-nav align-items-center">
+          <li className="nav-item">
+            <button className="btn btn-link nav-link text-white text-decoration-none" onClick={() => cambiarVista('catalogo')}>
+              Catálogo
+            </button>
+          </li>
+          <li className="nav-item">
+            <button className="btn btn-link nav-link text-white text-decoration-none" onClick={() => cambiarVista('admin')}>
+              Administración
+            </button>
+          </li>
+          <li className="nav-item ms-3">
+            <button className="btn btn-outline-light position-relative" onClick={() => cambiarVista('carrito')}>
+               Carrito
+              {totalCarrito > 0 && (
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light text-dark">
+                  {totalCarrito}
+                </span>
+              )}
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
   );
-}
+};
 
 export default Navbar;
