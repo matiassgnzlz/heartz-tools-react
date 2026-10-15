@@ -1,4 +1,8 @@
 // src/data/productosData.js
+import imgGuitarra from '../assets/productos/guitarra.png';
+import imgBateria from '../assets/productos/bateria.jpg';
+import imgAuriculares from '../assets/productos/auriculares.png';
+import imgMicrofono from '../assets/productos/microfono.png';
 
 export let productosIniciales = [
   {
@@ -7,7 +11,7 @@ export let productosIniciales = [
     categoria: "Guitarras",
     precio: 180000,
     enOferta: true,
-    imagen: "assets/img/guitarra-negra.jpg",
+    imagen: imgGuitarra,
     descripcion: "Guitarra eléctrica de alta gama con acabado negro mate y pastillas humbucker."
   },
   {
@@ -16,7 +20,7 @@ export let productosIniciales = [
     categoria: "Baterías",
     precio: 450000,
     enOferta: false,
-    imagen: "assets/img/bateria-azul.jpg",
+    imagen: imgBateria,
     descripcion: "Set completo de batería acústica de 5 piezas con herrajes reforzados."
   },
   {
@@ -25,7 +29,7 @@ export let productosIniciales = [
     categoria: "Accesorios",
     precio: 35000,
     enOferta: true,
-    imagen: "assets/img/auriculares-negro.jpg",
+    imagen: imgAuriculares,
     descripcion: "Auriculares circumaurales cerrados ideales para monitoreo y mezcla."
   },
   {
@@ -34,7 +38,7 @@ export let productosIniciales = [
     categoria: "Accesorios",
     precio: 65000,
     enOferta: false,
-    imagen: "assets/img/microfono.jfif",
+    imagen: imgMicrofono,
     descripcion: "Micrófono de estudio profesional para voces e instrumentos."
   }
 ];
@@ -66,4 +70,9 @@ export const actualizarProducto = (id, datosActualizados) => {
     p.id === id ? { ...p, ...datosActualizados } : p
   );
   return productosIniciales;
+};
+
+// Buscar un producto por ID (para la página de detalle)
+export const obtenerProductoPorId = (id) => {
+  return productosIniciales.find((p) => p.id === Number(id));
 };

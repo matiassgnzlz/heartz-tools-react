@@ -29,7 +29,7 @@ const Admin = ({ productos, onAgregarProducto, onEliminarProducto }) => {
             <textarea name="descripcion" className="form-control" placeholder="Descripción" rows="2" required></textarea>
           </div>
           <div className="col-md-12">
-            <input type="text" name="imagen" className="form-control" placeholder="Ruta de imagen (ej: assets/img/guitarra.jpg)" />
+            <input type="text" name="imagen" className="form-control" placeholder="URL de imagen (opcional)" />
           </div>
           <div className="col-md-12 text-end">
             <button type="submit" className="btn btn-dark fw-semibold px-4">Guardar Producto</button>
