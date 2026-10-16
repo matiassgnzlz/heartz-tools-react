@@ -1,5 +1,4 @@
 // src/pages/Catalogo.jsx
-import React from 'react';
 import ProductCard from '../components/ProductCard';
 
 const Catalogo = ({ productos, onAgregarCarrito }) => {

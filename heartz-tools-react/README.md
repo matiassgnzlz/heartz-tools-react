@@ -1,16 +1,36 @@
-# React + Vite
+# Heartz Tools (React + Bootstrap)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Tienda online de instrumentos hecha con **React**, **React Router** y **Bootstrap**.
+Pruebas unitarias con **Jasmine** y **Karma** (Chrome headless), compiladas con webpack y Babel.
 
-Currently, two official plugins are available:
+## Instalar y ejecutar
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev        # servidor de desarrollo (Vite)
+```
 
-## React Compiler
+## Pruebas unitarias
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm test           # ejecuta todas las pruebas una vez y genera cobertura
+npm run test:watch # vuelve a ejecutar al detectar cambios
+```
 
-## Expanding the Oxlint configuration
+Karma necesita un navegador Chromium (Chrome, Brave o Edge). Si no lo encuentra,
+define la variable `CHROME_BIN` con la ruta del ejecutable.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- Las pruebas están junto al código que prueban (`*.spec.js` / `*.spec.jsx`).
+- Los ayudantes para montar componentes están en `src/test/utils.jsx`.
+- El informe de cobertura se genera en `coverage/index.html`.
+
+## Estructura
+
+```
+src/
+  components/  Navbar, ProductCard, ProductImage, Footer
+  pages/       Catalogo, ProductoDetalle, Carrito, Admin
+  data/        productosData.js (CRUD de productos)
+  utils/       precio.js, validarProducto.js, persistencia.js
+  test/        index.js (entrada de Karma) y utils.jsx
+```

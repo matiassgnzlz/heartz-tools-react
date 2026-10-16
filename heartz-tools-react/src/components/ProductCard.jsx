@@ -1,6 +1,7 @@
 // src/components/ProductCard.jsx
 import { Link } from 'react-router-dom';
 import ProductImage from './ProductImage';
+import { formatearPrecio } from '../utils/precio';
 
 const ProductCard = ({ prod, onAgregarCarrito }) => {
   return (
@@ -20,7 +21,7 @@ const ProductCard = ({ prod, onAgregarCarrito }) => {
             </Link>
           </h5>
           <p className="card-text text-secondary small">{prod.descripcion}</p>
-          <p className="fw-bold text-success fs-5 mt-auto">${prod.precio.toLocaleString('es-CL')}</p>
+          <p className="fw-bold text-success fs-5 mt-auto">{formatearPrecio(prod.precio)}</p>
           <div className="d-grid gap-2">
             <Link to={`/producto/${prod.id}`} className="btn btn-outline-dark fw-semibold">
               Ver detalle

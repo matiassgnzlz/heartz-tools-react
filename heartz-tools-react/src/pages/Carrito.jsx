@@ -1,5 +1,5 @@
 // src/pages/Carrito.jsx
-import React from 'react';
+import { formatearPrecio } from '../utils/precio';
 
 const Carrito = ({ carrito, onEliminarItem }) => {
   const total = carrito.reduce((acc, item) => acc + (item.precio * item.cantidad), 0);
@@ -21,7 +21,7 @@ const Carrito = ({ carrito, onEliminarItem }) => {
                   <small className="text-muted">Cantidad: {item.cantidad}</small>
                 </div>
                 <div className="text-end">
-                  <span className="fw-bold text-success d-block">${(item.precio * item.cantidad).toLocaleString('es-CL')}</span>
+                  <span className="fw-bold text-success d-block">{formatearPrecio(item.precio * item.cantidad)}</span>
                   <button className="btn btn-sm btn-outline-danger mt-1" onClick={() => onEliminarItem(item.id)}>
                     Eliminar
                   </button>
@@ -30,10 +30,13 @@ const Carrito = ({ carrito, onEliminarItem }) => {
             ))}
           </ul>
           <div className="card p-4 shadow-sm border border-secondary-subtle bg-white text-end">
-            <h4 className="text-dark">Total a Pagar: <span className="text-success fw-bold">${total.toLocaleString('es-CL')}</span></h4>
-            <button className="btn btn-success btn-lg mt-3 w-25 ms-auto fw-semibold" onClick={() => alert('¡Compra realizada con éxito!')}>
-              Pagar
-            </button>
+            <h4 className="text-dark">Total a Pagar: <span className="text-success fw-bold">{formatearPrecio(total)}</span></h4>
+            {/* Celular: botón a todo el ancho (d-grid). Escritorio: botón compacto a la derecha */}
+            <div className="d-grid d-md-flex justify-content-md-end mt-3">
+              <button className="btn btn-success btn-lg px-md-5 fw-semibold" onClick={() => alert('¡Compra realizada con éxito!')}>
+                Pagar
+              </button>
+            </div>
           </div>
         </div>
       )}

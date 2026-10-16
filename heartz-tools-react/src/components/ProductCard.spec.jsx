@@ -1,5 +1,5 @@
 import ProductCard from './ProductCard';
-import { render, click, limpiar } from '../tests/utils';
+import { render, click, limpiar } from '../test/utils';
 
 describe('ProductCard', () => {
   // Datos de prueba (fixture)
@@ -20,19 +20,23 @@ describe('ProductCard', () => {
   });
   afterEach(limpiar);
 
-  it('muestra nombre, categoría y descripción del producto', () => {
+  it('debería mostrar el nombre del producto', () => {
     const dom = render(<ProductCard prod={producto} onAgregarCarrito={onAgregarCarrito} />);
     expect(dom.querySelector('.card-title').textContent).toContain('Bajo Eléctrico');
+  });
+
+  it('debería mostrar la categoría y la descripción recibidas por props', () => {
+    const dom = render(<ProductCard prod={producto} onAgregarCarrito={onAgregarCarrito} />);
     expect(dom.querySelector('.badge.bg-dark').textContent).toBe('Bajos');
     expect(dom.querySelector('.card-text').textContent).toBe('Bajo de 4 cuerdas');
   });
 
-  it('muestra el precio con formato chileno', () => {
+  it('debería mostrar el precio con formato chileno', () => {
     const dom = render(<ProductCard prod={producto} onAgregarCarrito={onAgregarCarrito} />);
     expect(dom.querySelector('.text-success').textContent).toBe('$250.000');
   });
 
-  it('muestra el badge de oferta solo si enOferta es true', () => {
+  it('debería mostrar el aviso de oferta solo si enOferta es true', () => {
     const conOferta = render(<ProductCard prod={producto} onAgregarCarrito={onAgregarCarrito} />);
     expect(conOferta.querySelector('.badge.bg-danger')).not.toBeNull();
 
@@ -42,15 +46,17 @@ describe('ProductCard', () => {
     expect(sinOferta.querySelector('.badge.bg-danger')).toBeNull();
   });
 
-  it('llama a onAgregarCarrito con el producto al presionar "Añadir al carrito"', () => {
+  it('debería llamar a onAgregarCarrito con el producto al presionar el botón', () => {
     const dom = render(<ProductCard prod={producto} onAgregarCarrito={onAgregarCarrito} />);
     const boton = [...dom.querySelectorAll('button')].find((b) => b.textContent.includes('Añadir'));
+
     click(boton);
+
     expect(onAgregarCarrito).toHaveBeenCalledTimes(1);
     expect(onAgregarCarrito).toHaveBeenCalledWith(producto);
   });
 
-  it('enlaza a la página de detalle del producto', () => {
+  it('debería enlazar a la página de detalle del producto', () => {
     const dom = render(<ProductCard prod={producto} onAgregarCarrito={onAgregarCarrito} />);
     const enlaces = [...dom.querySelectorAll('a')].map((a) => a.getAttribute('href'));
     expect(enlaces).toContain('/producto/7');

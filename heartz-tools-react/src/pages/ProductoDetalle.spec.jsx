@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import ProductoDetalle from './ProductoDetalle';
-import { render, click, limpiar } from '../tests/utils';
+import { render, click, limpiar } from '../test/utils';
 
 describe('ProductoDetalle', () => {
   const productos = [
@@ -15,21 +15,23 @@ describe('ProductoDetalle', () => {
     );
   afterEach(limpiar);
 
-  it('muestra la información del producto según el id de la URL', () => {
+  it('debería mostrar la información del producto según el id de la URL', () => {
     const dom = montar('/producto/1');
     expect(dom.querySelector('h1').textContent).toBe('Guitarra');
     expect(dom.textContent).toContain('$180.000');
   });
 
-  it('agrega el producto al carrito desde la página de detalle', () => {
-    const spy = jasmine.createSpy('onAgregarCarrito');
-    const dom = montar('/producto/1', spy);
+  it('debería agregar el producto al carrito desde la página de detalle', () => {
+    const onAgregarCarrito = jasmine.createSpy('onAgregarCarrito');
+    const dom = montar('/producto/1', onAgregarCarrito);
     const boton = [...dom.querySelectorAll('button')].find((b) => b.textContent.includes('Añadir'));
+
     click(boton);
-    expect(spy).toHaveBeenCalledWith(productos[0]);
+
+    expect(onAgregarCarrito).toHaveBeenCalledWith(productos[0]);
   });
 
-  it('muestra "Producto no encontrado" si el id no existe', () => {
+  it('debería mostrar el mensaje "Producto no encontrado" si el id no existe', () => {
     const dom = montar('/producto/999');
     expect(dom.textContent).toContain('Producto no encontrado');
   });

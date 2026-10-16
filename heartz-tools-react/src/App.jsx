@@ -1,5 +1,5 @@
 // src/App.jsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { obtenerProductos, agregarProducto, eliminarProducto } from './data/productosData';
 import Navbar from './components/Navbar';
@@ -8,10 +8,16 @@ import Catalogo from './pages/Catalogo';
 import Carrito from './pages/Carrito';
 import Admin from './pages/Admin';
 import ProductoDetalle from './pages/ProductoDetalle';
+import { guardarCarrito, cargarCarrito } from './utils/persistencia';
 
 function App() {
   const [productos, setProductos] = useState(obtenerProductos());
-  const [carrito, setCarrito] = useState([]);
+  const [carrito, setCarrito] = useState(cargarCarrito);
+
+  // Cada vez que cambia el carrito se guarda, para no perderlo al recargar
+  useEffect(() => {
+    guardarCarrito(carrito);
+  }, [carrito]);
 
   const agregarAlCarrito = (producto) => {
     const existe = carrito.find((item) => item.id === producto.id);
@@ -30,20 +36,10 @@ function App() {
     setCarrito(carrito.filter((item) => item.id !== id));
   };
 
-  const handleAgregarProducto = (e) => {
-    e.preventDefault();
-    const nuevo = {
-      nombre: e.target.nombre.value,
-      categoria: e.target.categoria.value,
-      precio: Number(e.target.precio.value),
-      enOferta: e.target.enOferta.checked,
-      imagen: e.target.imagen.value,
-      descripcion: e.target.descripcion.value
-    };
+  // Recibe el producto ya validado desde el formulario de Admin
+  const handleAgregarProducto = (nuevo) => {
     const actualizados = agregarProducto(nuevo);
     setProductos([...actualizados]);
-    e.target.reset();
-    alert('¡Producto agregado con éxito!');
   };
 
   const handleEliminarProducto = (id) => {

@@ -1,6 +1,7 @@
 // src/pages/ProductoDetalle.jsx
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import ProductImage from '../components/ProductImage';
+import { formatearPrecio } from '../utils/precio';
 
 const ProductoDetalle = ({ productos, onAgregarCarrito }) => {
   const { id } = useParams();
@@ -38,7 +39,7 @@ const ProductoDetalle = ({ productos, onAgregarCarrito }) => {
             <span className="badge bg-dark mb-2">{prod.categoria}</span>
             <h1 className="fw-bold text-dark h2">{prod.nombre}</h1>
             <p className="text-secondary">{prod.descripcion}</p>
-            <p className="fw-bold text-success display-6 my-4">${prod.precio.toLocaleString('es-CL')}</p>
+            <p className="fw-bold text-success display-6 my-4">{formatearPrecio(prod.precio)}</p>
 
             <div className="d-grid d-sm-flex gap-2">
               <button className="btn btn-dark btn-lg fw-semibold" onClick={() => onAgregarCarrito(prod)}>
